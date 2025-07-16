@@ -41,9 +41,15 @@ export default function Home() {
     }, 2500);
     return () => clearInterval(interval);
   }, []);
+  
 
   return (
     <Layout>
+      
+      <div className="bg-red-500 text-white p-8">
+        If you see a red box, Tailwind is working!
+      </div>
+
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center pt-16 pb-8 animate-fade-in">
         {/* Avatar */}
         <div className="mb-6">
