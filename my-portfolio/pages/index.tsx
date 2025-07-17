@@ -79,7 +79,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col items-center justify-center pt-16 pb-8 animate-fade-in">
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 flex flex-col items-center justify-center pt-16 pb-8 animate-fade-in font-sans">
         {/* Avatar */}
         <div className="mb-6">
           <Image
@@ -120,13 +120,13 @@ export default function Home() {
           <h2 className="text-2xl font-bold text-secondary mb-6 text-center">Featured Projects</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {featuredProjects.map((project) => (
-              <div key={project.title} className="bg-white rounded-xl shadow-lg p-6 border border-gray-200 animate-fade-in flex flex-col h-full">
+              <div key={project.title} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full">
                 <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
                 <h3 className="text-xl font-semibold mb-2 text-primary">{project.title}</h3>
                 <div>
-                  <p className="text-gray-700 mb-2">{project.description}</p>
+                  <p className="text-gray-500 dark:text-gray-300 font-sans font-normal mb-2">{project.description}</p>
                   {project.bullets && (
-                    <ul className="list-disc list-inside mb-2 text-gray-600 text-sm">
+                    <ul className="list-disc list-inside mb-2 text-gray-700 dark:text-gray-200 text-base font-medium font-sans">
                       {project.bullets.map((bullet, idx) => (
                         <li key={idx}>{bullet}</li>
                       ))}

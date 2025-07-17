@@ -10,10 +10,10 @@ export default function Navbar() {
     const stored = localStorage.getItem('theme');
     if (stored === 'dark') {
       setDarkMode(true);
-      document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
     } else {
       setDarkMode(false);
-      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
     }
   }, []);
 
@@ -21,10 +21,10 @@ export default function Navbar() {
     setDarkMode((prev) => {
       const next = !prev;
       if (next) {
-        document.documentElement.classList.add('dark');
+        document.body.classList.add('dark');
         localStorage.setItem('theme', 'dark');
       } else {
-        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('dark');
         localStorage.setItem('theme', 'light');
       }
       return next;
@@ -42,7 +42,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo */}
@@ -97,7 +97,7 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 border-t dark:border-gray-700">
               {navItems.map((item) => (
                 <Link
                   key={item.name}

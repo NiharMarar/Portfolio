@@ -20,23 +20,25 @@ const skills = [
 export default function Skills() {
   return (
     <Layout>
-      <section className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold mb-10 text-primary">Skills</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skills.map((skill) => (
-            <div key={skill.name} className="flex items-center gap-4 bg-white rounded-xl shadow p-4 border border-gray-200 animate-fade-in">
-              <div>{skill.icon}</div>
-              <div className="flex-1">
-                <div className="font-semibold text-lg text-secondary mb-1">{skill.name}</div>
-                <div className="w-full bg-gray-200 rounded-full h-4 mb-1 overflow-hidden">
-                  <div className="bg-green-500 h-4 rounded-full transition-all duration-700" style={{ width: `${skill.level}%`, minWidth: '8px' }}></div>
+      <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
+        <section className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold mb-10 text-primary">Skills</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {skills.map((skill) => (
+              <div key={skill.name} className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200 dark:border-gray-700 animate-fade-in font-sans">
+                <div>{skill.icon}</div>
+                <div className="flex-1">
+                  <div className="font-semibold text-lg text-secondary mb-1 font-sans">{skill.name}</div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4 mb-1 overflow-hidden">
+                    <div className="bg-green-500 h-4 rounded-full transition-all duration-700" style={{ width: `${skill.level}%`, minWidth: '8px' }}></div>
+                  </div>
+                  <div className="text-xs text-gray-500 dark:text-gray-300 font-sans">Proficiency: {skill.level}%</div>
                 </div>
-                <div className="text-xs text-gray-500">Proficiency: {skill.level}%</div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 } 

@@ -56,57 +56,59 @@ export default function Projects() {
 
   return (
     <Layout>
-      <section className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl font-bold mb-8 text-primary">Projects</h1>
-        {/* Filter UI */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          <button
-            className={`px-4 py-2 rounded-full border font-semibold transition-colors ${filter === 'All' ? 'bg-primary text-white' : 'bg-white text-primary border-primary hover:bg-primary hover:text-white'}`}
-            onClick={() => setFilter('All')}
-          >
-            All
-          </button>
-          {allTags.map(tag => (
+      <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
+        <section className="max-w-5xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl font-bold mb-8 text-primary">Projects</h1>
+          {/* Filter UI */}
+          <div className="flex flex-wrap gap-2 mb-8">
             <button
-              key={tag}
-              className={`px-4 py-2 rounded-full border font-semibold transition-colors ${filter === tag ? 'bg-primary text-white' : 'bg-white text-primary border-primary hover:bg-primary hover:text-white'}`}
-              onClick={() => setFilter(tag)}
+              className={`px-4 py-2 rounded-full border font-semibold transition-colors ${filter === 'All' ? 'bg-primary text-white' : 'bg-white text-primary border-primary hover:bg-primary hover:text-white'}`}
+              onClick={() => setFilter('All')}
             >
-              {tag}
+              All
             </button>
-          ))}
-        </div>
-        {/* Projects Grid */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {filteredProjects.map((project) => (
-            <div key={project.title} className="bg-white rounded-xl shadow-lg p-6 border border-gray-200 animate-fade-in flex flex-col h-full">
-              <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
-              <h2 className="text-2xl font-semibold mb-2 text-secondary">{project.title}</h2>
-              <div>
-                <p className="text-gray-700 mb-2">{project.description}</p>
-                {project.bullets && (
-                  <ul className="list-disc list-inside mb-2 text-gray-600 text-sm">
-                    {project.bullets.map((bullet, idx) => (
-                      <li key={idx}>{bullet}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-              <div className="flex-1" />
-              <div>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tech.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">
-                      {tag}
-                    </span>
-                  ))}
+            {allTags.map(tag => (
+              <button
+                key={tag}
+                className={`px-4 py-2 rounded-full border font-semibold transition-colors ${filter === tag ? 'bg-primary text-white' : 'bg-white text-primary border-primary hover:bg-primary hover:text-white'}`}
+                onClick={() => setFilter(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+          {/* Projects Grid */}
+          <div className="grid gap-8 md:grid-cols-2">
+            {filteredProjects.map((project) => (
+              <div key={project.title} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full">
+                <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
+                <h2 className="text-2xl font-semibold mb-2 text-secondary">{project.title}</h2>
+                <div>
+                  <p className="text-gray-500 dark:text-gray-300 font-sans font-normal mb-2">{project.description}</p>
+                  {project.bullets && (
+                    <ul className="list-disc list-inside mb-2 text-gray-700 dark:text-gray-200 text-base font-medium font-sans">
+                      {project.bullets.map((bullet, idx) => (
+                        <li key={idx}>{bullet}</li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary inline-block mt-auto">{project.title === 'NEXUS Shopping Website' ? 'View Live' : 'View on GitHub'}</a>
+                <div className="flex-1" />
+                <div>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tag) => (
+                      <span key={tag} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary inline-block mt-auto">{project.title === 'NEXUS Shopping Website' ? 'View Live' : 'View on GitHub'}</a>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </div>
     </Layout>
   );
 } 
