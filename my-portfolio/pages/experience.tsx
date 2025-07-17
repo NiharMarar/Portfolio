@@ -49,14 +49,14 @@ export default function Experience() {
     <Layout>
       <section className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold mb-10 text-primary">Experience</h1>
-        <div className="relative border-l-2 border-primary/30 pl-8">
+        <div className="relative border-l-2 border-primary pl-8">
           {experiences.map((exp, idx) => (
-            <div key={exp.title} className="mb-12 animate-fade-in" style={{ animationDelay: `${idx * 0.1 + 0.2}s` }}>
-              <div className="absolute -left-4 top-2 w-6 h-6 bg-primary rounded-full border-4 border-white shadow-lg"></div>
-              <div className="mb-2 text-lg font-semibold text-secondary">{exp.title}</div>
-              <div className="mb-1 text-gray-700 font-medium">{exp.company} <span className="text-gray-400">| {exp.location}</span></div>
-              <div className="mb-2 text-sm text-gray-500">{exp.date}</div>
-              <ul className="list-disc list-inside text-gray-700 ml-2">
+            <div key={exp.title} className="mb-12 relative">
+              <span className="absolute -left-5 top-1.5 w-4 h-4 bg-primary rounded-full border-2 border-white"></span>
+              <h3 className="font-bold text-xl">{exp.title}</h3>
+              <div className="font-semibold text-gray-700">{exp.company} <span className="text-gray-400">| {exp.location}</span></div>
+              <div className="text-gray-400 mb-2">{exp.date}</div>
+              <ul className="list-disc ml-5 text-gray-700">
                 {exp.description.map((d, i) => (
                   <li key={i}>{d}</li>
                 ))}

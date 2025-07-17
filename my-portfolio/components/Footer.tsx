@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold text-primary mb-4">Your Name</h3>
+            <h3 className="text-2xl font-bold text-primary mb-4">Nihar Marar</h3>
             <p className="text-gray-300">
               Full-stack developer passionate about creating amazing web experiences.
             </p>
@@ -72,7 +72,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} Your Name. All rights reserved.
+            © {new Date().getFullYear()} Nihar Marar. All rights reserved.
           </p>
         </div>
       </div>
