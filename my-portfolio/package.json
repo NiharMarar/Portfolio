@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "corepack enable",
+    "vercel-build": "corepack enable && yarn install && next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "corepack enable"
+    "lint": "next lint"
   },
   "dependencies": {
     "framer-motion": "^12.23.6",
