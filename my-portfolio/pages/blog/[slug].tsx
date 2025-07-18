@@ -34,7 +34,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default function BlogPost({ title, date, contentHtml }) {
+type BlogPostProps = {
+  title: string;
+  date: string;
+  contentHtml: string;
+};
+
+export default function BlogPost({ title, date, contentHtml }: BlogPostProps) {
   return (
     <Layout>
       <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
