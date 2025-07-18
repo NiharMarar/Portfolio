@@ -8,7 +8,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
-  let paths = [];
+  let paths: { params: { slug: string } }[] = [];
   if (fs.existsSync(postsDirectory)) {
     paths = fs.readdirSync(postsDirectory)
       .filter((file) => file.endsWith('.md'))
