@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "corepack enable"
   },
   "dependencies": {
     "framer-motion": "^12.23.6",
