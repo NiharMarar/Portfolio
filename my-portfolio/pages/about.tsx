@@ -14,7 +14,7 @@ export default function About() {
             Download Resume
           </a>
           <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 font-sans">
-            Hi, I'm Nihar Marar, a full-stack developer and machine learning engineer passionate about building impactful web and data-driven applications. I have experience in Python, JavaScript, SQL, C++, and more, and enjoy working on both frontend and backend projects.
+            Hi, I&apos;m Nihar Marar, a full-stack developer and machine learning engineer passionate about building impactful web and data-driven applications. I have experience in Python, JavaScript, SQL, C++, and more, and enjoy working on both frontend and backend projects.
           </p>
           <div className="mb-8">
             <h2 className="text-2xl font-semibold mb-2 text-secondary">Education</h2>
