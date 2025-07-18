@@ -7,7 +7,7 @@ import html from 'remark-html';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const postsDirectory = path.join(process.cwd(), 'my-portfolio/posts');
+  const postsDirectory = path.join(process.cwd(), 'posts');
   let paths = [];
   if (fs.existsSync(postsDirectory)) {
     paths = fs.readdirSync(postsDirectory)
@@ -19,7 +19,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-  const postsDirectory = path.join(process.cwd(), 'my-portfolio/posts');
+  const postsDirectory = path.join(process.cwd(), 'posts');
   const fullPath = path.join(postsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       title: data.title || slug,
-      date: data.date || '',
+      date: typeof data.date === 'string' ? data.date : (data.date ? String(data.date) : ''),
       contentHtml,
     },
   };

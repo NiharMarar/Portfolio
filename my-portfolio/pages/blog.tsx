@@ -4,9 +4,16 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 
+type BlogPost = {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+};
+
 export async function getStaticProps() {
-  const postsDirectory = path.join(process.cwd(), 'my-portfolio/posts');
-  let posts = [];
+  const postsDirectory = path.join(process.cwd(), 'posts');
+  let posts: BlogPost[] = [];
   if (fs.existsSync(postsDirectory)) {
     posts = fs.readdirSync(postsDirectory)
       .filter((file) => file.endsWith('.md'))
@@ -18,7 +25,7 @@ export async function getStaticProps() {
         return {
           slug,
           title: data.title || slug,
-          date: data.date || '',
+          date: typeof data.date === 'string' ? data.date : (data.date ? String(data.date) : ''),
           excerpt: data.excerpt || '',
         };
       })
@@ -27,7 +34,7 @@ export async function getStaticProps() {
   return { props: { posts } };
 }
 
-export default function Blog({ posts }) {
+export default function Blog({ posts }: { posts: BlogPost[] }) {
   return (
     <Layout>
       <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 font-sans">
@@ -45,7 +52,7 @@ export default function Blog({ posts }) {
                   <h2 className="text-2xl font-bold text-primary dark:text-accent mb-2">
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                   </h2>
-                  <div className="text-gray-500 dark:text-gray-400 text-sm mb-2">{post.date}</div>
+                  <div className="text-gray-500 dark:text-gray-400 text-sm mb-2">{post.date ? new Date(post.date).toLocaleDateString() : ''}</div>
                   <p className="text-gray-700 dark:text-gray-200 font-sans mb-2">{post.excerpt}</p>
                   <Link href={`/blog/${post.slug}`} className="text-secondary hover:underline font-medium">Read More</Link>
                 </div>
