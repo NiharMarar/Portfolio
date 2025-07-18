@@ -2,6 +2,7 @@
 
 import Layout from '../components/Layout';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
@@ -121,8 +122,8 @@ export default function Home() {
         </div>
         {/* Call to action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12">
-          <a href="/projects" className="btn-primary">View My Work</a>
-          <a href="/contact" className="px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">Get In Touch</a>
+          <Link href="/projects" className="btn-primary">View My Work</Link>
+          <Link href="/contact" className="px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">Get In Touch</Link>
         </div>
         {/* Featured Projects Preview */}
         <section className="w-full max-w-4xl mb-12">
@@ -138,7 +139,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, delay: idx * 0.08 }}
               >
-                <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
+                <Image src={project.image} alt={project.title} width={400} height={160} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
                 <h3 className="text-xl font-semibold mb-2 text-primary">{project.title}</h3>
                 <div>
                   <p className="text-gray-500 dark:text-gray-300 font-sans font-normal mb-2">{project.description}</p>
@@ -177,7 +178,7 @@ export default function Home() {
           </div>
         </section>
         {/* Scroll down arrow */}
-        <a href="/about" className="mt-4 animate-bounce text-primary text-3xl">↓</a>
+        <Link href="/about" className="mt-4 animate-bounce text-primary text-3xl">↓</Link>
       </div>
     </Layout>
   );

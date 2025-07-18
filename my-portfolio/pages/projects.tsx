@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -90,7 +91,7 @@ export default function Projects() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, delay: idx * 0.08 }}
               >
-                <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
+                <Image src={project.image} alt={project.title} width={400} height={160} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
                 <h2 className="text-2xl font-semibold mb-2 text-secondary">{project.title}</h2>
                 <div>
                   <p className="text-gray-500 dark:text-gray-300 font-sans font-normal mb-2">{project.description}</p>
