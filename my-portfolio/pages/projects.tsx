@@ -9,7 +9,7 @@ const projects = [
     link: 'https://shopping-website-zeta-rose.vercel.app/',
     description: 'A cyberpunk-themed, full-stack e-commerce platform built with Next.js, React, and Supabase. Features a custom UI, secure authentication, Stripe payments, real-time shipping, admin dashboard, and user reviews.',
     tech: ['Next.js', 'React', 'Supabase', 'Stripe', 'Shippo', 'Tailwind CSS', 'Vercel'],
-    image: '/ChatGPT Image Jul 17, 2025, 12_57_12 PM.png',
+    image: '/NEXUS.png',
     bullets: [
       'Architected a scalable e-commerce platform with Next.js and Supabase, supporting user authentication, product catalog, cart, and order management with real-time updates.',
       'Designed and implemented a custom cyberpunk UI using Tailwind CSS, with animated components, responsive layouts, and consistent design language.',
@@ -26,7 +26,7 @@ const projects = [
     link: 'https://github.com/NiharMarar/Atomic-Archipelago',
     description: 'Java-based synchronization primitives and concurrency at the OS level, with a multi-threaded simulation and deadlock-free operation.',
     tech: ['Java', 'Nachos', 'OS', 'Concurrency'],
-    image: '/ChatGPT Image Jul 17, 2025, 01_01_06 PM.png',
+    image: '/os_project.png',
     bullets: [
       'Engineered a kernel-level concurrency library in Java for the Nachos teaching OS, implementing custom Locks, Semaphores, Condition Variables, and a Communicator to guarantee atomic operations without busy-waiting',
       'Built a multi-threaded boat-crossing simulation that exercised 1,000+ concurrent threads; validated race-condition freedom, starvation avoidance, and correct hand-off scheduling under heavy stress tests',
@@ -40,7 +40,7 @@ const projects = [
     link: 'https://github.com/NiharMarar/HealthSync-Database-Application',
     description: 'Hospital database management system with UI for patient record management, scheduling, and billing. Complex SQL queries for data accuracy.',
     tech: ['Python', 'SQL', 'Flask'],
-    image: '/ChatGPT Image Jul 17, 2025, 01_06_16 PM.png',
+    image: '/hospital_db.png',
     bullets: [
       'Architected a fully-normalized relational schema (patients, clinicians, encounters, billing, inventory) with enforced foreign-key constraints and cascade rules, streamlining hospital-wide data integrity',
       'Developed a role-based web UI in Python/Flask that guides patients, doctors, and administrators through appointments, electronic health records, and inventory dashboards',

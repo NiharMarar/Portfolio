@@ -31,7 +31,7 @@ const featuredProjects = [
       'Authored modular, reusable React components and custom hooks for state management, ensuring maintainability and extensibility for future features.'
     ],
     tech: ['Next.js', 'React', 'Supabase', 'Stripe', 'Shippo', 'Tailwind CSS', 'Vercel'],
-    image: '/ChatGPT Image Jul 17, 2025, 12_57_12 PM.png',
+    image: '/NEXUS.png',
   },
   {
     title: 'Atomic Archipelago - OS Concurrency and Scheduling Puzzle',
@@ -45,7 +45,7 @@ const featuredProjects = [
       'Produced detailed design documentation and API guidelines, enabling classmates to integrate the new primitives into later virtual-memory and file-system modules with zero regressions'
     ],
     tech: ['Java', 'Nachos', 'OS', 'Concurrency'],
-    image: '/ChatGPT Image Jul 17, 2025, 01_01_06 PM.png',
+    image: '/os_project.png',
   },
   {
     title: 'HealthSync - Database Application',
@@ -58,7 +58,7 @@ const featuredProjects = [
       'Implemented HIPAA-aligned security features—RBAC authentication, AES-encrypted PHI columns, and audit logging, ensuring secure patient record management and end-to-end billing accuracy'
     ],
     tech: ['Python', 'SQL', 'Flask'],
-    image: '/ChatGPT Image Jul 17, 2025, 01_06_16 PM.png',
+    image: '/hospital_db.png',
   },
 ];
 
