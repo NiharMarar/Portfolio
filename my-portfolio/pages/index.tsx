@@ -3,6 +3,7 @@
 import Layout from '../components/Layout';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const skills = [
   { name: 'Python', icon: '🐍' },
@@ -101,6 +102,14 @@ export default function Home() {
             {subtitles[subtitleIndex]}
           </span>
         </div>
+        {/* Download Resume Button */}
+        <a
+          href="/NiharMarar_Resume.pdf"
+          download
+          className="btn-primary inline-block mb-8"
+        >
+          Download Resume
+        </a>
         {/* Skills row */}
         <div className="flex flex-wrap gap-4 justify-center mb-10">
           {skills.map((skill) => (
@@ -119,8 +128,16 @@ export default function Home() {
         <section className="w-full max-w-4xl mb-12">
           <h2 className="text-2xl font-bold text-secondary mb-6 text-center">Featured Projects</h2>
           <div className="grid gap-6 md:grid-cols-2">
-            {featuredProjects.map((project) => (
-              <div key={project.title} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full">
+            {featuredProjects.map((project, idx) => (
+              <motion.div
+                key={project.title}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)' }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.08 }}
+              >
                 <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
                 <h3 className="text-xl font-semibold mb-2 text-primary">{project.title}</h3>
                 <div>
@@ -144,7 +161,7 @@ export default function Home() {
                   )}
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary inline-block mt-auto">{project.title === 'NEXUS Shopping Website' ? 'View Live' : 'View on GitHub'}</a>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>

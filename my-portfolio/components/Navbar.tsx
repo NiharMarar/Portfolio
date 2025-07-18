@@ -38,6 +38,8 @@ export default function Navbar() {
     { name: 'Projects', href: '/projects' },
     { name: 'Skills', href: '/skills' },
     { name: 'Coursework', href: '/coursework' },
+    { name: 'Testimonials', href: '/testimonials' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '/contact' },
   ];
 

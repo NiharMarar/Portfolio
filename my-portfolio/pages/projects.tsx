@@ -1,5 +1,6 @@
 import Layout from '../components/Layout';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -79,8 +80,16 @@ export default function Projects() {
           </div>
           {/* Projects Grid */}
           <div className="grid gap-8 md:grid-cols-2">
-            {filteredProjects.map((project) => (
-              <div key={project.title} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full">
+            {filteredProjects.map((project, idx) => (
+              <motion.div
+                key={project.title}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 animate-fade-in flex flex-col h-full"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.15)' }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.08 }}
+              >
                 <img src={project.image} alt={project.title} className="w-full h-40 object-cover rounded-lg mb-4 bg-gray-100" />
                 <h2 className="text-2xl font-semibold mb-2 text-secondary">{project.title}</h2>
                 <div>
@@ -104,7 +113,7 @@ export default function Projects() {
                   </div>
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary inline-block mt-auto">{project.title === 'NEXUS Shopping Website' ? 'View Live' : 'View on GitHub'}</a>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>

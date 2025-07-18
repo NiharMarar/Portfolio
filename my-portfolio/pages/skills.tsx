@@ -1,6 +1,7 @@
 import Layout from '../components/Layout';
 import { FaPython, FaJava, FaReact, FaAws, FaDatabase, FaJs, FaGitAlt, FaLinux } from 'react-icons/fa';
 import { SiCplusplus, SiTypescript, SiMongodb, SiPostgresql } from 'react-icons/si';
+import { motion } from 'framer-motion';
 
 const skills = [
   { name: 'Python', icon: <FaPython className="text-3xl text-blue-500" />, level: 95 },
@@ -24,8 +25,15 @@ export default function Skills() {
         <section className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold mb-10 text-primary">Skills</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {skills.map((skill) => (
-              <div key={skill.name} className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200 dark:border-gray-700 animate-fade-in font-sans">
+            {skills.map((skill, idx) => (
+              <motion.div
+                key={skill.name}
+                className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl shadow p-4 border border-gray-200 dark:border-gray-700 animate-fade-in font-sans"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.08 }}
+              >
                 <div>{skill.icon}</div>
                 <div className="flex-1">
                   <div className="font-semibold text-lg text-secondary mb-1 font-sans">{skill.name}</div>
@@ -34,7 +42,7 @@ export default function Skills() {
                   </div>
                   <div className="text-xs text-gray-500 dark:text-gray-300 font-sans">Proficiency: {skill.level}%</div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </section>
