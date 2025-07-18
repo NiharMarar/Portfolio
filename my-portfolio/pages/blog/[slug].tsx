@@ -10,9 +10,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const postsDirectory = path.join(process.cwd(), 'posts');
   let paths: { params: { slug: string } }[] = [];
   if (fs.existsSync(postsDirectory)) {
-    paths = fs.readdirSync(postsDirectory)
+    const files = fs.readdirSync(postsDirectory);
+    console.log('Blog post files found:', files);
+    paths = files
       .filter((file) => file.endsWith('.md'))
       .map((file) => ({ params: { slug: file.replace(/\.md$/, '') } }));
+    console.log('Blog post paths generated:', paths);
   }
   return { paths, fallback: false };
 };
