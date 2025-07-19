@@ -66,7 +66,7 @@ const commands = {
       <div className="space-y-2">
         <div className="text-green-400">Current user:</div>
         <div className="text-gray-300">visitor@portfolio</div>
-        <div className="text-yellow-400 mt-2">Welcome to Nihar's portfolio terminal!</div>
+                    <div className="text-yellow-400 mt-2">Welcome to Nihar&apos;s portfolio terminal!</div>
       </div>
     )
   },
@@ -120,10 +120,10 @@ const commands = {
           <div>Full-Stack Developer & Machine Learning Engineer</div>
           <div></div>
           <div>## Quick Start</div>
-          <div>- Type 'help' for available commands</div>
-          <div>- Type 'cd about' to learn more about me</div>
-          <div>- Type 'cd projects' to see my work</div>
-          <div>- Type 'cd contact' to get in touch</div>
+          <div>- Type &apos;help&apos; for available commands</div>
+          <div>- Type &apos;cd about&apos; to learn more about me</div>
+          <div>- Type &apos;cd projects&apos; to see my work</div>
+          <div>- Type &apos;cd contact&apos; to get in touch</div>
           <div></div>
           <div>## Skills</div>
           <div>- Python, React, Next.js, AWS, SQL, Java, C++</div>
@@ -153,7 +153,7 @@ const getDirectoryContent = (dir: string) => {
         <div className="text-green-400 text-lg font-semibold">About Nihar Marar</div>
         <div className="text-gray-300 space-y-3">
           <p>
-            I'm a passionate Full-Stack Developer and Machine Learning Engineer with expertise in building scalable web applications. 
+            I&apos;m a passionate Full-Stack Developer and Machine Learning Engineer with expertise in building scalable web applications. 
             I love working with modern technologies and solving complex problems.
           </p>
           <div className="border-l-2 border-blue-400 pl-4">
@@ -170,7 +170,7 @@ const getDirectoryContent = (dir: string) => {
             <div className="text-gray-300">Available for remote work worldwide</div>
           </div>
         </div>
-        <div className="text-yellow-400 mt-4">Type 'cd projects' to see my work or 'cd contact' to get in touch!</div>
+        <div className="text-yellow-400 mt-4">Type &apos;cd projects&apos; to see my work or &apos;cd contact&apos; to get in touch!</div>
       </div>
     ),
     projects: (
@@ -208,7 +208,7 @@ const getDirectoryContent = (dir: string) => {
             </div>
           </div>
         </div>
-        <div className="text-yellow-400 mt-4">Type 'cd skills' to see my technical skills!</div>
+        <div className="text-yellow-400 mt-4">Type &apos;cd skills&apos; to see my technical skills!</div>
       </div>
     ),
     skills: (
@@ -314,7 +314,7 @@ const getDirectoryContent = (dir: string) => {
         </div>
         <div className="border-t border-gray-600 pt-3">
           <div className="text-yellow-400 text-sm">
-            💡 <span className="text-gray-300">I'm always open to discussing new opportunities, collaborations, or just chatting about technology!</span>
+            💡 <span className="text-gray-300">I&apos;m always open to discussing new opportunities, collaborations, or just chatting about technology!</span>
           </div>
         </div>
       </div>
@@ -329,7 +329,7 @@ const getDirectoryContent = (dir: string) => {
             <div className="text-gray-400 text-xs mt-1">Published: 2024-01-15</div>
           </div>
         </div>
-        <div className="text-yellow-400 mt-4">More posts coming soon! Type 'cd contact' to get in touch.</div>
+        <div className="text-yellow-400 mt-4">More posts coming soon! Type &apos;cd contact&apos; to get in touch.</div>
       </div>
     ),
     coursework: (
@@ -396,8 +396,8 @@ export default function Terminal() {
         command: '',
         output: (
           <div className="space-y-2">
-            <div className="text-green-400">Welcome to Nihar's Portfolio Terminal!</div>
-            <div className="text-gray-300">Type 'help' to see available commands.</div>
+            <div className="text-green-400">Welcome to Nihar&apos;s Portfolio Terminal!</div>
+            <div className="text-gray-300">Type &apos;help&apos; to see available commands.</div>
           </div>
         ),
         timestamp: new Date()
@@ -466,7 +466,7 @@ export default function Terminal() {
       command: cmd,
       output: commandObj ? commandObj.output : (
         <div className="text-red-400">
-          Command not found: {command}. Type 'help' for available commands.
+          Command not found: {command}. Type &apos;help&apos; for available commands.
         </div>
       ),
       timestamp: new Date()
@@ -561,7 +561,7 @@ export default function Terminal() {
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <div className="text-gray-400 text-sm ml-4">Nihar's Portfolio Terminal</div>
+            <div className="text-gray-400 text-sm ml-4">Nihar&apos;s Portfolio Terminal</div>
           </div>
           <button
             onClick={goToWebsite}
@@ -612,7 +612,7 @@ export default function Terminal() {
 
         {/* Terminal Footer */}
         <div className="text-gray-500 text-xs mt-2 text-center">
-          Press 'help' for commands • Use ↑↓ to navigate history • Tab for completion • Type 'exit' or click Website to leave terminal
+          Press &apos;help&apos; for commands • Use ↑↓ to navigate history • Tab for completion • Type &apos;exit&apos; or click Website to leave terminal
         </div>
       </motion.div>
     </div>
