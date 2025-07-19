@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 
 interface Command {
   command: string;
-  output: string | React.ReactNode;
+  output: React.ReactNode;
   timestamp: Date;
 }
 
-const commands = {
+type CommandOutput = React.ReactNode | ((args: string, setCurrentDir: (dir: string) => void) => React.ReactNode) | ((currentDir: string) => React.ReactNode) | ((args: string) => React.ReactNode) | null;
+
+const commands: Record<string, { description: string; output: CommandOutput }> = {
   help: {
     description: 'Show available commands',
     output: (
@@ -433,18 +435,10 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'echo') {
-      if (!commandObj) {
-        const newCommand: Command = {
-          command: cmd,
-          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
-          timestamp: new Date()
-        };
-        setCommandHistory(prev => [...prev, newCommand]);
-        return;
-      }
+      const echoCommand = commands.echo;
       const newCommand: Command = {
         command: cmd,
-        output: commandObj.output(args.join(' ')),
+        output: (echoCommand.output as (args: string) => React.ReactNode)(args.join(' ')),
         timestamp: new Date()
       };
       setCommandHistory(prev => [...prev, newCommand]);
@@ -452,18 +446,10 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'cd') {
-      if (!commandObj) {
-        const newCommand: Command = {
-          command: cmd,
-          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
-          timestamp: new Date()
-        };
-        setCommandHistory(prev => [...prev, newCommand]);
-        return;
-      }
+      const cdCommand = commands.cd;
       const newCommand: Command = {
         command: cmd,
-        output: commandObj.output(args.join(' '), setCurrentDir),
+        output: (cdCommand.output as (args: string, setCurrentDir: (dir: string) => void) => React.ReactNode)(args.join(' '), setCurrentDir),
         timestamp: new Date()
       };
       setCommandHistory(prev => [...prev, newCommand]);
@@ -471,31 +457,45 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'pwd') {
-      if (!commandObj) {
-        const newCommand: Command = {
-          command: cmd,
-          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
-          timestamp: new Date()
-        };
-        setCommandHistory(prev => [...prev, newCommand]);
-        return;
-      }
+      const pwdCommand = commands.pwd;
       const newCommand: Command = {
         command: cmd,
-        output: commandObj.output(currentDir),
+        output: (pwdCommand.output as (currentDir: string) => React.ReactNode)(currentDir),
         timestamp: new Date()
       };
       setCommandHistory(prev => [...prev, newCommand]);
       return;
     }
 
-    const newCommand: Command = {
-      command: cmd,
-      output: commandObj ? commandObj.output : (
+    let output: React.ReactNode;
+    
+    if (commandObj) {
+      if (typeof commandObj.output === 'function') {
+        // Handle function outputs
+        if (command.toLowerCase() === 'cd') {
+          output = (commandObj.output as (args: string, setCurrentDir: (dir: string) => void) => React.ReactNode)(args.join(' '), setCurrentDir);
+        } else if (command.toLowerCase() === 'pwd') {
+          output = (commandObj.output as (currentDir: string) => React.ReactNode)(currentDir);
+        } else if (command.toLowerCase() === 'echo') {
+          output = (commandObj.output as (args: string) => React.ReactNode)(args.join(' '));
+        } else {
+          output = (commandObj.output as () => React.ReactNode)();
+        }
+      } else {
+        // Handle static outputs
+        output = commandObj.output;
+      }
+    } else {
+      output = (
         <div className="text-red-400">
           Command not found: {command}. Type &apos;help&apos; for available commands.
         </div>
-      ),
+      );
+    }
+
+    const newCommand: Command = {
+      command: cmd,
+      output: output,
       timestamp: new Date()
     };
 
