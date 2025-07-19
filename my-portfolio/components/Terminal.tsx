@@ -433,6 +433,15 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'echo') {
+      if (!commandObj) {
+        const newCommand: Command = {
+          command: cmd,
+          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
+          timestamp: new Date()
+        };
+        setCommandHistory(prev => [...prev, newCommand]);
+        return;
+      }
       const newCommand: Command = {
         command: cmd,
         output: commandObj.output(args.join(' ')),
@@ -443,6 +452,15 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'cd') {
+      if (!commandObj) {
+        const newCommand: Command = {
+          command: cmd,
+          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
+          timestamp: new Date()
+        };
+        setCommandHistory(prev => [...prev, newCommand]);
+        return;
+      }
       const newCommand: Command = {
         command: cmd,
         output: commandObj.output(args.join(' '), setCurrentDir),
@@ -453,6 +471,15 @@ export default function Terminal() {
     }
 
     if (command.toLowerCase() === 'pwd') {
+      if (!commandObj) {
+        const newCommand: Command = {
+          command: cmd,
+          output: <div className="text-red-400">Command not found: {command}. Type &apos;help&apos; for available commands.</div>,
+          timestamp: new Date()
+        };
+        setCommandHistory(prev => [...prev, newCommand]);
+        return;
+      }
       const newCommand: Command = {
         command: cmd,
         output: commandObj.output(currentDir),
