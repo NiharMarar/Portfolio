@@ -16,21 +16,49 @@ const commands = {
         <div className="text-green-400">Available commands:</div>
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div><span className="text-blue-400">help</span> - Show this help message</div>
-          <div><span className="text-blue-400">about</span> - Learn about me</div>
-          <div><span className="text-blue-400">projects</span> - View my projects</div>
-          <div><span className="text-blue-400">skills</span> - See my technical skills</div>
-          <div><span className="text-blue-400">experience</span> - View my experience</div>
-          <div><span className="text-blue-400">contact</span> - Get in touch</div>
-          <div><span className="text-blue-400">blog</span> - Read my blog</div>
-          <div><span className="text-blue-400">resume</span> - Download my resume</div>
-          <div><span className="text-blue-400">whoami</span> - Show current user</div>
+          <div><span className="text-blue-400">cd</span> - Change directory</div>
           <div><span className="text-blue-400">ls</span> - List files/directories</div>
           <div><span className="text-blue-400">cat</span> - Display file contents</div>
+          <div><span className="text-blue-400">pwd</span> - Show current directory</div>
+          <div><span className="text-blue-400">whoami</span> - Show current user</div>
+          <div><span className="text-blue-400">date</span> - Show current date/time</div>
+          <div><span className="text-blue-400">echo</span> - Display text</div>
           <div><span className="text-blue-400">clear</span> - Clear terminal</div>
           <div><span className="text-blue-400">exit</span> - Exit terminal mode</div>
         </div>
+        <div className="text-yellow-400 mt-2">Directories: about, projects, skills, experience, contact, blog, coursework, testimonials</div>
       </div>
     )
+  },
+  cd: {
+    description: 'Change directory',
+    output: (args: string, setCurrentDir: (dir: string) => void) => {
+      const dir = args.trim();
+      if (!dir) {
+        return <div className="text-gray-300">Usage: cd [directory]</div>;
+      }
+      
+      const directories = ['about', 'projects', 'skills', 'experience', 'contact', 'blog', 'coursework', 'testimonials'];
+      
+      if (directories.includes(dir)) {
+        // Update current directory
+        setCurrentDir(dir);
+        // Show content for the directory
+        const content = getDirectoryContent(dir);
+        return (
+          <div className="space-y-2">
+            <div className="text-green-400">Changed to directory: {dir}</div>
+            <div className="text-gray-300">{content}</div>
+          </div>
+        );
+      } else if (dir === '..' || dir === '../') {
+        // Go back to root
+        setCurrentDir('');
+        return <div className="text-green-400">Back to portfolio root</div>;
+      } else {
+        return <div className="text-red-400">Directory not found: {dir}</div>;
+      }
+    }
   },
   whoami: {
     description: 'Show current user',
@@ -40,6 +68,26 @@ const commands = {
         <div className="text-gray-300">visitor@portfolio</div>
         <div className="text-yellow-400 mt-2">Welcome to Nihar's portfolio terminal!</div>
       </div>
+    )
+  },
+  pwd: {
+    description: 'Show current directory',
+    output: (currentDir: string) => (
+      <div className="text-gray-300">
+        {currentDir ? `/home/visitor/portfolio/${currentDir}` : '/home/visitor/portfolio'}
+      </div>
+    )
+  },
+  date: {
+    description: 'Show current date/time',
+    output: (
+      <div className="text-gray-300">{new Date().toLocaleString()}</div>
+    )
+  },
+  echo: {
+    description: 'Display text',
+    output: (args: string) => (
+      <div className="text-gray-300">{args || 'Usage: echo [text]'}</div>
     )
   },
   ls: {
@@ -73,9 +121,9 @@ const commands = {
           <div></div>
           <div>## Quick Start</div>
           <div>- Type 'help' for available commands</div>
-          <div>- Type 'about' to learn more about me</div>
-          <div>- Type 'projects' to see my work</div>
-          <div>- Type 'contact' to get in touch</div>
+          <div>- Type 'cd about' to learn more about me</div>
+          <div>- Type 'cd projects' to see my work</div>
+          <div>- Type 'cd contact' to get in touch</div>
           <div></div>
           <div>## Skills</div>
           <div>- Python, React, Next.js, AWS, SQL, Java, C++</div>
@@ -83,119 +131,6 @@ const commands = {
           <div>## Education</div>
           <div>- Computer Science Major</div>
           <div>- Relevant coursework in Data Structures, OS, ML</div>
-        </div>
-      </div>
-    )
-  },
-  about: {
-    description: 'Learn about me',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">About Nihar Marar:</div>
-        <div className="text-gray-300">
-          I'm a passionate Full-Stack Developer and Machine Learning Engineer with expertise in building scalable web applications. 
-          I love working with modern technologies like React, Next.js, Python, and AWS.
-        </div>
-        <div className="text-yellow-400 mt-2">Type 'projects' to see my work or 'contact' to get in touch!</div>
-      </div>
-    )
-  },
-  projects: {
-    description: 'View my projects',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Featured Projects:</div>
-        <div className="space-y-3">
-          <div className="border-l-2 border-blue-400 pl-3">
-            <div className="text-blue-400 font-semibold">NEXUS Shopping Website</div>
-            <div className="text-gray-300 text-sm">Full-stack e-commerce platform with Next.js, Supabase, and Stripe</div>
-          </div>
-          <div className="border-l-2 border-blue-400 pl-3">
-            <div className="text-blue-400 font-semibold">Atomic Archipelago</div>
-            <div className="text-gray-300 text-sm">OS concurrency and scheduling puzzle in Java</div>
-          </div>
-          <div className="border-l-2 border-blue-400 pl-3">
-            <div className="text-blue-400 font-semibold">HealthSync</div>
-            <div className="text-gray-300 text-sm">Hospital database management system with Flask</div>
-          </div>
-        </div>
-        <div className="text-yellow-400 mt-2">Type 'projects' to navigate to the full projects page!</div>
-      </div>
-    )
-  },
-  skills: {
-    description: 'See my technical skills',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Technical Skills:</div>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div><span className="text-blue-400">🐍 Python</span> - Advanced</div>
-          <div><span className="text-blue-400">⚛️ React</span> - Advanced</div>
-          <div><span className="text-blue-400">☁️ AWS</span> - Intermediate</div>
-          <div><span className="text-blue-400">🗄️ SQL</span> - Advanced</div>
-          <div><span className="text-blue-400">💻 C++</span> - Intermediate</div>
-          <div><span className="text-blue-400">☕ Java</span> - Advanced</div>
-          <div><span className="text-blue-400">🚀 Next.js</span> - Advanced</div>
-          <div><span className="text-blue-400">🎨 Tailwind</span> - Advanced</div>
-        </div>
-      </div>
-    )
-  },
-  experience: {
-    description: 'View my experience',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Experience:</div>
-        <div className="space-y-3">
-          <div className="border-l-2 border-green-400 pl-3">
-            <div className="text-green-400 font-semibold">Full-Stack Developer</div>
-            <div className="text-gray-300 text-sm">Building scalable web applications with modern technologies</div>
-          </div>
-          <div className="border-l-2 border-green-400 pl-3">
-            <div className="text-green-400 font-semibold">Machine Learning Engineer</div>
-            <div className="text-gray-300 text-sm">Developing ML models and data pipelines</div>
-          </div>
-        </div>
-      </div>
-    )
-  },
-  contact: {
-    description: 'Get in touch',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Contact Information:</div>
-        <div className="space-y-1 text-sm">
-          <div><span className="text-blue-400">📧 Email:</span> nihar.marar@example.com</div>
-          <div><span className="text-blue-400">💼 LinkedIn:</span> linkedin.com/in/niharmarar</div>
-          <div><span className="text-blue-400">🐙 GitHub:</span> github.com/NiharMarar</div>
-        </div>
-        <div className="text-yellow-400 mt-2">Type 'contact' to navigate to the contact page!</div>
-      </div>
-    )
-  },
-  blog: {
-    description: 'Read my blog',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Blog Posts:</div>
-        <div className="space-y-2 text-sm">
-          <div className="text-blue-400">• Getting Started with Next.js</div>
-          <div className="text-blue-400">• Building Scalable E-commerce Platforms</div>
-          <div className="text-blue-400">• OS Concurrency Best Practices</div>
-        </div>
-        <div className="text-yellow-400 mt-2">Type 'blog' to navigate to the full blog!</div>
-      </div>
-    )
-  },
-  resume: {
-    description: 'Download my resume',
-    output: (
-      <div className="space-y-2">
-        <div className="text-green-400">Resume Download:</div>
-        <div className="text-gray-300">
-          <a href="/NiharMarar_Resume.pdf" download className="text-blue-400 hover:underline">
-            📄 Download NiharMarar_Resume.pdf
-          </a>
         </div>
       </div>
     )
@@ -210,14 +145,243 @@ const commands = {
   }
 };
 
+// Directory content function
+const getDirectoryContent = (dir: string) => {
+  const content = {
+    about: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">About Nihar Marar</div>
+        <div className="text-gray-300 space-y-3">
+          <p>
+            I'm a passionate Full-Stack Developer and Machine Learning Engineer with expertise in building scalable web applications. 
+            I love working with modern technologies and solving complex problems.
+          </p>
+          <div className="border-l-2 border-blue-400 pl-4">
+            <div className="text-blue-400 font-semibold">Education</div>
+            <div className="text-gray-300">Computer Science Major</div>
+            <div className="text-gray-300 text-sm">Focus on Software Engineering and Machine Learning</div>
+          </div>
+          <div className="border-l-2 border-green-400 pl-4">
+            <div className="text-green-400 font-semibold">Interests</div>
+            <div className="text-gray-300">Web Development, Machine Learning, System Design, Open Source</div>
+          </div>
+          <div className="border-l-2 border-yellow-400 pl-4">
+            <div className="text-yellow-400 font-semibold">Location</div>
+            <div className="text-gray-300">Available for remote work worldwide</div>
+          </div>
+        </div>
+        <div className="text-yellow-400 mt-4">Type 'cd projects' to see my work or 'cd contact' to get in touch!</div>
+      </div>
+    ),
+    projects: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Featured Projects</div>
+        <div className="space-y-4">
+          <div className="border border-gray-600 rounded p-4">
+            <div className="text-blue-400 font-semibold text-lg">NEXUS Shopping Website</div>
+            <div className="text-gray-300 text-sm mb-2">Full-stack e-commerce platform with Next.js, Supabase, and Stripe</div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Tech:</span> Next.js, React, Supabase, Stripe, Tailwind CSS
+            </div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Link:</span> https://shopping-website-zeta-rose.vercel.app/
+            </div>
+          </div>
+          <div className="border border-gray-600 rounded p-4">
+            <div className="text-blue-400 font-semibold text-lg">Atomic Archipelago</div>
+            <div className="text-gray-300 text-sm mb-2">OS concurrency and scheduling puzzle in Java</div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Tech:</span> Java, Nachos, OS, Concurrency
+            </div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Link:</span> https://github.com/NiharMarar/Atomic-Archipelago
+            </div>
+          </div>
+          <div className="border border-gray-600 rounded p-4">
+            <div className="text-blue-400 font-semibold text-lg">HealthSync</div>
+            <div className="text-gray-300 text-sm mb-2">Hospital database management system with Flask</div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Tech:</span> Python, SQL, Flask
+            </div>
+            <div className="text-gray-400 text-xs">
+              <span className="text-green-400">Link:</span> https://github.com/NiharMarar/HealthSync-Database-Application
+            </div>
+          </div>
+        </div>
+        <div className="text-yellow-400 mt-4">Type 'cd skills' to see my technical skills!</div>
+      </div>
+    ),
+    skills: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Technical Skills</div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Programming Languages</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">🐍 Python</span> - Advanced</div>
+              <div><span className="text-green-400">☕ Java</span> - Advanced</div>
+              <div><span className="text-green-400">💻 C++</span> - Intermediate</div>
+              <div><span className="text-green-400">📜 JavaScript</span> - Advanced</div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Web Technologies</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">⚛️ React</span> - Advanced</div>
+              <div><span className="text-green-400">🚀 Next.js</span> - Advanced</div>
+              <div><span className="text-green-400">🎨 Tailwind</span> - Advanced</div>
+              <div><span className="text-green-400">🗄️ SQL</span> - Advanced</div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Cloud & DevOps</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">☁️ AWS</span> - Intermediate</div>
+              <div><span className="text-green-400">🚀 Vercel</span> - Advanced</div>
+              <div><span className="text-green-400">🐳 Docker</span> - Intermediate</div>
+              <div><span className="text-green-400">📦 Git</span> - Advanced</div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Tools & Frameworks</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">🤖 TensorFlow</span> - Intermediate</div>
+              <div><span className="text-green-400">📊 Pandas</span> - Advanced</div>
+              <div><span className="text-green-400">🔧 Supabase</span> - Advanced</div>
+              <div><span className="text-green-400">💳 Stripe</span> - Intermediate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    experience: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Professional Experience</div>
+        <div className="space-y-4">
+          <div className="border-l-2 border-green-400 pl-4">
+            <div className="text-green-400 font-semibold">Full-Stack Developer</div>
+            <div className="text-gray-300 text-sm">2023 - Present</div>
+            <div className="text-gray-300 mt-2">
+              Building scalable web applications with modern technologies like React, Next.js, and Node.js. 
+              Specializing in e-commerce platforms and real-time applications.
+            </div>
+            <div className="text-gray-400 text-xs mt-2">
+              <span className="text-green-400">Key Skills:</span> React, Next.js, TypeScript, Node.js, PostgreSQL
+            </div>
+          </div>
+          <div className="border-l-2 border-blue-400 pl-4">
+            <div className="text-blue-400 font-semibold">Machine Learning Engineer</div>
+            <div className="text-gray-300 text-sm">2022 - Present</div>
+            <div className="text-gray-300 mt-2">
+              Developing ML models and data pipelines for various applications. 
+              Working with TensorFlow, PyTorch, and cloud-based ML services.
+            </div>
+            <div className="text-gray-400 text-xs mt-2">
+              <span className="text-green-400">Key Skills:</span> Python, TensorFlow, AWS SageMaker, Data Analysis
+            </div>
+          </div>
+          <div className="border-l-2 border-yellow-400 pl-4">
+            <div className="text-yellow-400 font-semibold">Open Source Contributor</div>
+            <div className="text-gray-300 text-sm">2021 - Present</div>
+            <div className="text-gray-300 mt-2">
+              Contributing to various open source projects and maintaining personal repositories. 
+              Focus on web development and educational tools.
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    contact: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Contact Information</div>
+        <div className="space-y-3">
+          <div className="flex items-center space-x-3">
+            <span className="text-blue-400">📧 Email:</span>
+            <span className="text-gray-300">nihar.marar@example.com</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <span className="text-blue-400">💼 LinkedIn:</span>
+            <span className="text-gray-300">linkedin.com/in/niharmarar</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <span className="text-blue-400">🐙 GitHub:</span>
+            <span className="text-gray-300">github.com/NiharMarar</span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <span className="text-blue-400">🌐 Portfolio:</span>
+            <span className="text-gray-300">nihar-marar.vercel.app</span>
+          </div>
+        </div>
+        <div className="border-t border-gray-600 pt-3">
+          <div className="text-yellow-400 text-sm">
+            💡 <span className="text-gray-300">I'm always open to discussing new opportunities, collaborations, or just chatting about technology!</span>
+          </div>
+        </div>
+      </div>
+    ),
+    blog: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Blog Posts</div>
+        <div className="space-y-3">
+          <div className="border border-gray-600 rounded p-3">
+            <div className="text-blue-400 font-semibold">Getting Started with Next.js</div>
+            <div className="text-gray-300 text-sm">A comprehensive guide to building modern web applications with Next.js</div>
+            <div className="text-gray-400 text-xs mt-1">Published: 2024-01-15</div>
+          </div>
+        </div>
+        <div className="text-yellow-400 mt-4">More posts coming soon! Type 'cd contact' to get in touch.</div>
+      </div>
+    ),
+    coursework: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Relevant Coursework</div>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Core Computer Science</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">📚 Data Structures & Algorithms</span></div>
+              <div><span className="text-green-400">🖥️ Operating Systems</span></div>
+              <div><span className="text-green-400">🌐 Computer Networks</span></div>
+              <div><span className="text-green-400">🗄️ Database Systems</span></div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <div className="text-blue-400 font-semibold">Specialized Topics</div>
+            <div className="space-y-1 text-sm">
+              <div><span className="text-green-400">🤖 Machine Learning</span></div>
+              <div><span className="text-green-400">🌐 Web Development</span></div>
+              <div><span className="text-green-400">🔒 Computer Security</span></div>
+              <div><span className="text-green-400">📊 Software Engineering</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+    testimonials: (
+      <div className="space-y-4">
+        <div className="text-green-400 text-lg font-semibold">Testimonials</div>
+        <div className="text-gray-300 text-center py-8">
+          <div className="text-4xl mb-4">🚧</div>
+          <div className="text-lg font-semibold text-yellow-400">Coming Soon!</div>
+          <div className="text-sm mt-2">Testimonials section is under construction.</div>
+          <div className="text-xs mt-4 text-gray-400">Check back later for client and colleague testimonials.</div>
+        </div>
+      </div>
+    )
+  };
+  
+  return content[dir as keyof typeof content] || <div className="text-red-400">Directory not found</div>;
+};
+
 const commandList = Object.keys(commands);
+const directories = ['about', 'projects', 'skills', 'experience', 'contact', 'blog', 'coursework', 'testimonials'];
 
 export default function Terminal() {
   const [input, setInput] = useState('');
   const [commandHistory, setCommandHistory] = useState<Command[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [isTyping, setIsTyping] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentDir, setCurrentDir] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -226,9 +390,8 @@ export default function Terminal() {
     // Focus input on mount
     inputRef.current?.focus();
     
-    // Show welcome message with delay
+    // Add welcome message after a short delay
     setTimeout(() => {
-      setShowWelcome(true);
       setCommandHistory([{
         command: '',
         output: (
@@ -239,46 +402,71 @@ export default function Terminal() {
         ),
         timestamp: new Date()
       }]);
-    }, 500);
+      setIsLoaded(true);
+    }, 300);
   }, []);
 
   useEffect(() => {
     // Scroll to bottom when new commands are added
-    if (terminalRef.current) {
+    if (terminalRef.current && isLoaded) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
-  }, [commandHistory]);
+  }, [commandHistory, isLoaded]);
 
   const executeCommand = async (cmd: string) => {
-    const trimmedCmd = cmd.trim().toLowerCase();
+    const trimmedCmd = cmd.trim();
+    const [command, ...args] = trimmedCmd.split(' ');
     
-    if (!trimmedCmd) return;
+    if (!command) return;
 
-    const command = commands[trimmedCmd as keyof typeof commands];
+    const commandObj = commands[command.toLowerCase() as keyof typeof commands];
     
-    if (trimmedCmd === 'clear') {
+    if (command.toLowerCase() === 'clear') {
       setCommandHistory([]);
       return;
     }
     
-    if (trimmedCmd === 'exit') {
+    if (command.toLowerCase() === 'exit') {
       // Exit terminal mode and go to regular homepage
       router.push('/home');
       return;
     }
 
-    if (trimmedCmd === 'projects' || trimmedCmd === 'about' || trimmedCmd === 'contact' || 
-        trimmedCmd === 'skills' || trimmedCmd === 'experience' || trimmedCmd === 'blog') {
-      // Navigate to the actual page
-      router.push(`/${trimmedCmd}`);
+    if (command.toLowerCase() === 'echo') {
+      const newCommand: Command = {
+        command: cmd,
+        output: commandObj.output(args.join(' ')),
+        timestamp: new Date()
+      };
+      setCommandHistory(prev => [...prev, newCommand]);
+      return;
+    }
+
+    if (command.toLowerCase() === 'cd') {
+      const newCommand: Command = {
+        command: cmd,
+        output: commandObj.output(args.join(' '), setCurrentDir),
+        timestamp: new Date()
+      };
+      setCommandHistory(prev => [...prev, newCommand]);
+      return;
+    }
+
+    if (command.toLowerCase() === 'pwd') {
+      const newCommand: Command = {
+        command: cmd,
+        output: commandObj.output(currentDir),
+        timestamp: new Date()
+      };
+      setCommandHistory(prev => [...prev, newCommand]);
       return;
     }
 
     const newCommand: Command = {
       command: cmd,
-      output: command ? command.output : (
+      output: commandObj ? commandObj.output : (
         <div className="text-red-400">
-          Command not found: {trimmedCmd}. Type 'help' for available commands.
+          Command not found: {command}. Type 'help' for available commands.
         </div>
       ),
       timestamp: new Date()
@@ -319,17 +507,44 @@ export default function Terminal() {
       }
     } else if (e.key === 'Tab') {
       e.preventDefault();
-      // Command completion
-      const partial = input.toLowerCase();
-      const matches = commandList.filter(cmd => cmd.startsWith(partial));
-      if (matches.length === 1) {
-        setInput(matches[0]);
-      } else if (matches.length > 1) {
-        // Show suggestions
-        const suggestion = matches[0];
-        setInput(suggestion);
+      // Enhanced tab completion
+      const words = input.split(' ');
+      const lastWord = words[words.length - 1].toLowerCase();
+      
+      if (words.length === 1) {
+        // Completing command
+        const matches = commandList.filter(cmd => cmd.startsWith(lastWord));
+        if (matches.length === 1) {
+          setInput(matches[0]);
+        } else if (matches.length > 1) {
+          // Show suggestions
+          const suggestion = matches[0];
+          setInput(suggestion);
+        }
+      } else if (words.length === 2 && words[0].toLowerCase() === 'cd') {
+        // Completing directory for cd command
+        const matches = directories.filter(dir => dir.startsWith(lastWord));
+        if (matches.length === 1) {
+          setInput(`cd ${matches[0]}`);
+        } else if (matches.length > 1) {
+          // Show suggestions
+          const suggestion = matches[0];
+          setInput(`cd ${suggestion}`);
+        }
       }
     }
+  };
+
+  const goToWebsite = () => {
+    router.push('/home');
+  };
+
+  // Generate prompt based on current directory
+  const getPrompt = () => {
+    if (currentDir) {
+      return `visitor@portfolio/${currentDir}:~$`;
+    }
+    return 'visitor@portfolio:~$';
   };
 
   return (
@@ -337,15 +552,23 @@ export default function Terminal() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.3 }}
         className="max-w-4xl mx-auto"
       >
         {/* Terminal Header */}
-        <div className="bg-gray-800 rounded-t-lg p-3 flex items-center space-x-2">
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-          <div className="text-gray-400 text-sm ml-4">Nihar's Portfolio Terminal</div>
+        <div className="bg-gray-800 rounded-t-lg p-3 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            <div className="text-gray-400 text-sm ml-4">Nihar's Portfolio Terminal</div>
+          </div>
+          <button
+            onClick={goToWebsite}
+            className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors"
+          >
+            🌐 Website
+          </button>
         </div>
 
         {/* Terminal Body */}
@@ -358,7 +581,7 @@ export default function Terminal() {
             <div key={index} className="mb-4">
               {cmd.command && (
                 <div className="mb-2">
-                  <span className="text-blue-400">visitor@portfolio:~$ </span>
+                  <span className="text-blue-400">{getPrompt()} </span>
                   <span className="text-white">{cmd.command}</span>
                 </div>
               )}
@@ -372,7 +595,7 @@ export default function Terminal() {
 
           {/* Current Input Line */}
           <form onSubmit={handleSubmit} className="flex items-center">
-            <span className="text-blue-400">visitor@portfolio:~$ </span>
+            <span className="text-blue-400">{getPrompt()} </span>
             <input
               ref={inputRef}
               type="text"
@@ -389,7 +612,7 @@ export default function Terminal() {
 
         {/* Terminal Footer */}
         <div className="text-gray-500 text-xs mt-2 text-center">
-          Press 'help' for commands • Use ↑↓ to navigate history • Tab for completion • Type 'exit' to leave terminal
+          Press 'help' for commands • Use ↑↓ to navigate history • Tab for completion • Type 'exit' or click Website to leave terminal
         </div>
       </motion.div>
     </div>

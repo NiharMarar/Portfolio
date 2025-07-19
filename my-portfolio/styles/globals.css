@@ -58,19 +58,8 @@ html {
   51%, 100% { opacity: 0; }
 }
 
-@keyframes typewriter {
-  from { width: 0; }
-  to { width: 100%; }
-}
-
 .terminal-cursor {
   animation: blink 1s infinite;
-}
-
-.terminal-typewriter {
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typewriter 2s steps(40, end);
 }
 
 /* Terminal scrollbar */

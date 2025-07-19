@@ -66,6 +66,13 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {/* Terminal button */}
+            <Link
+              href="/"
+              className="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded transition-colors font-medium"
+            >
+              💻 Terminal
+            </Link>
             {/* Dark mode toggle */}
             <button
               onClick={toggleDarkMode}
